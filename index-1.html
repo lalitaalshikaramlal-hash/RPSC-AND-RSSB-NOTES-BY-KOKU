@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#0f172a">
+<title>KOKU STUDY HUB</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:#f1f5f9;color:#0f172a}
+button{font:inherit}
+.app{max-width:720px;margin:auto;min-height:100vh;background:#f8fafc;padding-bottom:75px}
+header{background:#0f172a;color:#fff;padding:18px 16px;position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:22px}
+header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
+.page{display:none;padding:16px}.page.active{display:block}
+.card{background:#fff;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 4px 15px #0000000d;border:1px solid #e2e8f0}
+.hero{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;border:0}
+.hero h2{margin:0 0 8px}.hero p{color:#e2e8f0;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{border:0;border-radius:15px;padding:18px 10px;background:#fff;box-shadow:0 3px 12px #00000010;cursor:pointer;text-align:center;font-weight:700}
+.tile .icon{font-size:30px;display:block;margin-bottom:7px}
+.btn{width:100%;border:0;border-radius:12px;padding:13px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer}
+.btn.secondary{background:#e2e8f0;color:#0f172a}
+.btn.danger{background:#dc2626}
+.topic{display:flex;align-items:center;gap:12px;cursor:pointer}
+.topic .ticon{font-size:30px}.topic h3{margin:0 0 4px}.topic p{margin:0;color:#64748b;font-size:13px}
+.badge{display:inline-block;background:#dbeafe;color:#1d4ed8;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:700}
+.badge.off{background:#e2e8f0;color:#64748b}
+.qtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.timer{font-weight:800;color:#dc2626}
+.progress{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;margin:10px 0 18px}
+.progress>div{height:100%;background:#2563eb;width:0}
+.question{font-size:18px;line-height:1.65;font-weight:700;margin:16px 0}
+.option{width:100%;text-align:left;border:2px solid #e2e8f0;background:#fff;border-radius:12px;padding:13px;margin:7px 0;cursor:pointer}
+.option.correct{border-color:#16a34a;background:#dcfce7}
+.option.wrong{border-color:#dc2626;background:#fee2e2}
+.option.locked{cursor:default}
+.feedback{margin-top:12px;padding:11px;border-radius:10px;background:#f8fafc;font-size:14px;line-height:1.6}
+.result-big{text-align:center;padding:15px}.score{font-size:42px;font-weight:900;color:#2563eb}
+.review{border-left:4px solid #cbd5e1;padding-left:12px;margin:14px 0}
+.review.ok{border-color:#16a34a}.review.bad{border-color:#dc2626}
+.review h4{margin:0 0 7px;line-height:1.5}
+.small{font-size:13px;color:#64748b;line-height:1.6}
+.list{line-height:1.9}
+.bottom{position:fixed;bottom:0;left:0;right:0;max-width:720px;margin:auto;background:#fff;border-top:1px solid #e2e8f0;display:flex;z-index:20}
+.bottom button{flex:1;border:0;background:#fff;padding:9px 3px;color:#64748b;font-size:11px;cursor:pointer}
+.bottom button span{display:block;font-size:20px}.bottom button.active{color:#2563eb;font-weight:700}
+.link{display:block;text-decoration:none;color:#2563eb;font-weight:700;padding:12px 0;border-bottom:1px solid #e2e8f0}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:12px;padding:12px;font-size:13px;line-height:1.6}
+@media(max-width:430px){.grid{gap:9px}.tile{padding:15px 7px}.question{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<h1>📚 KOKU STUDY HUB</h1>
+<p>RPSC / RAS परीक्षा तैयारी</p>
+</header>
+
+<section id="home" class="page active">
+<div class="card hero">
+<h2>राजस्थान RPSC तैयारी केंद्र</h2>
+<p>क्विज़, नोट्स, वीडियो क्लास, स्टूडेंट गाइड और टाइमटेबल — सब एक जगह।</p>
+<button class="btn" onclick="showPage('quizInfo')">🎯 Quiz Center खोलें</button>
+</div>
+<div class="grid">
+<button class="tile" onclick="showPage('quizInfo')"><span class="icon">🎯</span>Quiz Center</button>
+<button class="tile" onclick="showPage('notes')"><span class="icon">📚</span>Notes / PDF</button>
+<button class="tile" onclick="showPage('videos')"><span class="icon">🎥</span>Video Classes</button>
+<button class="tile" onclick="showPage('guide')"><span class="icon">🧭</span>Student Guide</button>
+<button class="tile" onclick="showPage('timetable')"><span class="icon">⏰</span>8 Hour Timetable</button>
+<button class="tile" onclick="showPage('links')"><span class="icon">🔗</span>Important Links</button>
+</div>
+</section>
+
+<section id="quizInfo" class="page">
+<div class="card">
+<h2>🎯 Quiz Center</h2>
+<p class="small">विषय चुनें और एक-एक करके प्रश्न हल करें। उत्तर चुनने के बाद सही/गलत स्थिति दिखाई जाएगी और अंत में पूरा Answer Review मिलेगा।</p>
+<div class="notice">नोट: अभी इस फाइल में राजस्थान भूगोल के Q51–Q75 उपलब्ध प्रश्न जोड़े गए हैं। बाकी विषयों में प्रश्न जोड़ने के लिए इसी संरचना का उपयोग करें।</div>
+</div>
+<div id="topics"></div>
+</section>
+
+<section id="quiz" class="page">
+<div class="card">
+<div class="qtop"><span id="qTopic" class="badge"></span><span id="timer" class="timer">60:00</span></div>
+<div class="small" id="qCount"></div>
+<div class="progress"><div id="bar"></div></div>
+<div id="questionBox"></div>
+<button id="nextBtn" class="btn" onclick="nextQuestion()">अगला प्रश्न ➜</button>
+<button class="btn secondary" style="margin-top:8px" onclick="quitQuiz()">क्विज़ छोड़ें</button>
+</div>
+</section>
+
+<section id="result" class="page">
+<div class="card result-big">
+<h2>🏆 Quiz Result</h2>
+<div id="score" class="score">0</div>
+<div id="resultText"></div>
+</div>
+<div class="card" id="stats"></div>
+<div class="card">
+<h3>📝 Answer Review</h3>
+<div id="review"></div>
+</div>
+<button class="btn" onclick="restartQuiz()">🔄 फिर से शुरू करें</button>
+<button class="btn secondary" style="margin-top:8px" onclick="showPage('quizInfo')">📚 Topic बदलें</button>
+</section>
+
+<section id="notes" class="page">
+<div class="card"><h2>📚 Notes / PDF</h2><p class="small">यहाँ अपनी PDF के GitHub/Telegram/Drive लिंक डालें।</p>
+<a class="link" href="#" onclick="return false">📕 राजस्थान इतिहास PDF</a>
+<a class="link" href="#" onclick="return false">🗺️ राजस्थान भूगोल PDF</a>
+<a class="link" href="#" onclick="return false">🎨 कला एवं संस्कृति Notes</a>
+</div>
+</section>
+
+<section id="videos" class="page">
+<div class="card"><h2>🎥 Video Classes</h2>
+<a class="link" href="#" onclick="return false">▶️ राजस्थान इतिहास</a>
+<a class="link" href="#" onclick="return false">▶️ राजस्थान भूगोल</a>
+<a class="link" href="#" onclick="return false">▶️ कला एवं संस्कृति</a>
+</div>
+</section>
+
+<section id="guide" class="page">
+<div class="card"><h2>🧭 Student Guide</h2>
+<ul class="list">
+<li>रोज़ाना निर्धारित समय पर पढ़ाई करें।</li>
+<li>पहले बेसिक तथ्य, फिर PYQ और कठिन MCQ करें।</li>
+<li>गलत प्रश्नों की अलग Revision List बनाएँ।</li>
+<li>साप्ताहिक Mock Test देकर समय प्रबंधन सुधारें।</li>
+<li>करंट अफेयर्स की नियमित Revision करें।</li>
+</ul>
+</div>
+</section>
+
+<section id="timetable" class="page">
+<div class="card"><h2>⏰ 8 Hour Study Timetable</h2>
+<div class="list">
+<b>06:00–08:00</b> — मुख्य विषय अध्ययन<br>
+<b>09:00–11:00</b> — दूसरा विषय<br>
+<b>12:00–13:00</b> — Revision<br>
+<b>15:00–17:00</b> — MCQ / PYQ Practice<br>
+<b>18:00–19:00</b> — Current Affairs<br>
+<b>20:00–21:00</b> — गलत प्रश्नों की Revision
+</div>
+</div>
+</section>
+
+<section id="links" class="page">
+<div class="card"><h2>🔗 Important Links</h2>
+<a class="link" href="https://rpsc.rajasthan.gov.in/" target="_blank">RPSC Official Website ↗</a>
+<a class="link" href="https://rajasthan.gov.in/" target="_blank">Rajasthan Government ↗</a>
+<a class="link" href="https://www.tourism.rajasthan.gov.in/" target="_blank">Rajasthan Tourism ↗</a>
+</div>
+</section>
+
+<div class="bottom">
+<button onclick="showPage('home')" data-page="home"><span>🏠</span>Home</button>
+<button onclick="showPage('quizInfo')" data-page="quizInfo"><span>🎯</span>Quiz</button>
+<button onclick="showPage('notes')" data-page="notes"><span>📚</span>Notes</button>
+<button onclick="showPage('videos')" data-page="videos"><span>🎥</span>Videos</button>
+<button onclick="showPage('guide')" data-page="guide"><span>🧭</span>Guide</button>
+</div>
+</div>
+
+<script>
+const TOPICS={
+history:{title:"राजस्थान इतिहास",icon:"🏛️",questions:[]},
+culture:{title:"राजस्थान कला एवं संस्कृति",icon:"🎨",questions:[]},
+geography:{title:"राजस्थान भूगोल",icon:"🗺️",questions:[
+{no:51,q:"कथन: अरावली पर्वतमाला राजस्थान के दक्षिण-पश्चिम से उत्तर-पूर्व दिशा में विस्तृत है। निष्कर्ष: 1. अरावली की स्थिति राजस्थान के भौतिक एवं जलवायु विभाजन को प्रभावित करती है। 2. अरावली राजस्थान के पश्चिमी भाग को हिमालय से प्राप्त प्रत्येक मानसूनी वर्षा से पूर्णतः वंचित कर देती है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"पहला निष्कर्ष स्वीकार्य है; दूसरा 'पूर्णतः' होने के कारण अतिरंजित है।"},
+{no:52,q:"कथन: राजस्थान में वर्षा की मात्रा सामान्यतः दक्षिण-पूर्व से उत्तर-पश्चिम की ओर घटती जाती है। निष्कर्ष: 1. दक्षिण-पूर्वी राजस्थान में कृषि की परिस्थितियाँ पश्चिमी राजस्थान की तुलना में अपेक्षाकृत अनुकूल हैं। 2. राजस्थान के सभी क्षेत्रों में वर्षा का वितरण समान है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"वर्षा की क्षेत्रीय असमानता कृषि परिस्थितियों को प्रभावित करती है।"},
+{no:53,q:"कथन: लूणी नदी का अधिकांश प्रवाह क्षेत्र शुष्क एवं अर्द्ध-शुष्क प्रदेश में स्थित है। निष्कर्ष: 1. इसकी जलधारा में मौसमी परिवर्तन महत्वपूर्ण हो सकता है। 2. लूणी का प्रवाह पूरे वर्ष हिमालयी नदियों के समान बना रहता है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"लूणी का प्रवाह मानसूनी वर्षा से प्रभावित होने के कारण मौसमी है।"},
+{no:54,q:"कथन: राजस्थान के पश्चिमी भाग में मरुस्थलीय परिस्थितियाँ प्रमुख हैं। निष्कर्ष: 1. वहाँ जल उपलब्धता कृषि के लिए एक महत्वपूर्ण निर्धारक है। 2. पश्चिमी राजस्थान में सिंचाई का कृषि पर कोई प्रभाव नहीं पड़ता।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"जल उपलब्धता शुष्क क्षेत्र की कृषि का महत्वपूर्ण निर्धारक है।"},
+{no:55,q:"कथन: इंदिरा गांधी नहर ने उत्तर-पश्चिमी राजस्थान के अनेक क्षेत्रों में सिंचाई सुविधा का विस्तार किया। निष्कर्ष: 1. नहर सिंचाई ने कुछ क्षेत्रों में कृषि गतिविधियों के विस्तार को प्रभावित किया। 2. नहर के कारण राजस्थान का पूरा मरुस्थल समान रूप से अत्यधिक वर्षा वाला क्षेत्र बन गया।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"नहर सिंचाई बढ़ाती है, वर्षा को पूरे मरुस्थल में समान रूप से नहीं बढ़ाती।"},
+{no:56,q:"कथन: राजस्थान में काली मिट्टी मुख्यतः दक्षिण-पूर्वी भाग में पाई जाती है। निष्कर्ष: 1. इस क्षेत्र की कृषि परिस्थितियाँ पश्चिमी मरुस्थलीय क्षेत्र से भिन्न हैं। 2. काली मिट्टी का वितरण राजस्थान के पूरे क्षेत्र में समान है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"मिट्टी के प्रकार और जलवायु में क्षेत्रीय अंतर कृषि को प्रभावित करते हैं।"},
+{no:57,q:"कथन: राजस्थान की नदियों में कुछ नदियाँ आंतरिक अपवाह तंत्र से संबंधित हैं। निष्कर्ष: 1. राजस्थान की सभी नदियाँ समुद्र तक पहुँचती हैं। 2. कुछ नदियों का जल समुद्र तक पहुँचे बिना ही झीलों, दलदली क्षेत्रों या मरुस्थलीय भागों में समाप्त हो सकता है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:1,e:"आंतरिक अपवाह में जल समुद्र तक पहुँचे बिना समाप्त हो सकता है।"},
+{no:58,q:"कथन: सांभर झील राजस्थान की प्रमुख अंतर्देशीय लवणीय झील है। निष्कर्ष: 1. इसका आर्थिक महत्व नमक उत्पादन से जुड़ा है। 2. सांभर झील का जल राजस्थान की सभी प्रमुख नदियों का अंतिम संगम स्थल है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"सांभर का प्रमुख आर्थिक महत्व नमक उत्पादन से जुड़ा है।"},
+{no:59,q:"कथन: राजस्थान में अरावली के पश्चिम में मरुस्थलीय परिस्थितियाँ अधिक प्रभावी हैं। निष्कर्ष: 1. भौगोलिक स्थिति और वर्षा-वितरण का मरुस्थलीकरण से संबंध है। 2. अरावली पर्वतमाला राजस्थान में वर्षा के वितरण को प्रभावित करने वाले कारकों में से एक है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:2,e:"दोनों निष्कर्ष राजस्थान की भौगोलिक एवं जलवायवीय विविधता से संबंधित हैं।"},
+{no:60,q:"कथन: राजस्थान में कृषि का स्वरूप वर्षा और सिंचाई की उपलब्धता से प्रभावित होता है। निष्कर्ष: 1. समान फसल-पद्धति पूरे राजस्थान में अनिवार्य रूप से विकसित होगी। 2. जल उपलब्धता में क्षेत्रीय अंतर कृषि के क्षेत्रीय स्वरूप को प्रभावित कर सकता है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:1,e:"जल उपलब्धता के क्षेत्रीय अंतर से कृषि-पद्धति भी बदल सकती है।"},
+{no:61,q:"कथन: राजस्थान के दक्षिण-पूर्वी भाग में अपेक्षाकृत अधिक वर्षा होती है। निष्कर्ष: 1. यहाँ जल उपलब्धता पश्चिमी राजस्थान की तुलना में सामान्यतः अधिक अनुकूल हो सकती है। 2. दक्षिण-पूर्वी राजस्थान में मरुस्थलीय परिस्थितियाँ पूरे क्षेत्र पर समान रूप से हावी हैं।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"दक्षिण-पूर्व की अपेक्षाकृत अधिक वर्षा जल उपलब्धता को प्रभावित करती है।"},
+{no:62,q:"कथन: चंबल नदी राजस्थान के दक्षिण-पूर्वी भाग की प्रमुख नदी प्रणाली से संबंधित है। निष्कर्ष: 1. चंबल बेसिन का राजस्थान के कृषि एवं जल संसाधनों में महत्व है। 2. चंबल राजस्थान के पश्चिमी मरुस्थल की मुख्य नदी है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"चंबल दक्षिण-पूर्वी राजस्थान की महत्वपूर्ण नदी प्रणाली है।"},
+{no:63,q:"कथन: राजस्थान में खनिज संसाधनों का वितरण क्षेत्रीय रूप से असमान है। निष्कर्ष: 1. अलग-अलग भौगोलिक क्षेत्रों में अलग-अलग खनिजों का आर्थिक महत्व हो सकता है। 2. राजस्थान के प्रत्येक जिले में सभी प्रमुख खनिज समान मात्रा में पाए जाते हैं।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"खनिज वितरण भूगर्भीय संरचना के कारण क्षेत्रीय रूप से असमान होता है।"},
+{no:64,q:"कथन: अरावली क्षेत्र राजस्थान के खनिज संसाधनों की दृष्टि से महत्वपूर्ण है। निष्कर्ष: 1. भूगर्भीय संरचना का खनिज वितरण से संबंध हो सकता है। 2. खनिज संसाधनों का वितरण केवल वर्तमान जलवायु से निर्धारित होता है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"खनिज वितरण में भूगर्भीय संरचना का महत्वपूर्ण योगदान होता है।"},
+{no:65,q:"कथन: पश्चिमी राजस्थान में वर्षा की अनिश्चितता कृषि के लिए चुनौती उत्पन्न करती है। निष्कर्ष: 1. सिंचाई एवं जल-संरक्षण उपाय कृषि जोखिम को प्रभावित कर सकते हैं। 2. पश्चिमी राजस्थान में वर्षा की अनिश्चितता के कारण कोई भी कृषि गतिविधि संभव नहीं है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"अनिश्चित वर्षा जोखिम बढ़ाती है, लेकिन कृषि को असंभव नहीं बनाती।"},
+{no:66,q:"कथन: राजस्थान में मरुस्थलीकरण का संबंध प्राकृतिक एवं मानवीय दोनों कारकों से जोड़ा जा सकता है। निष्कर्ष: 1. भूमि उपयोग में परिवर्तन मरुस्थलीकरण की प्रक्रिया को प्रभावित कर सकता है। 2. मरुस्थलीकरण केवल प्राकृतिक प्रक्रिया है और मानव गतिविधियों की कोई भूमिका नहीं है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"भूमि उपयोग और मानव गतिविधियाँ मरुस्थलीकरण को प्रभावित कर सकती हैं।"},
+{no:67,q:"कथन: राजस्थान में जल संसाधनों का क्षेत्रीय वितरण असमान है। निष्कर्ष: 1. जल-संरक्षण राजस्थान की विकास-नीति का महत्वपूर्ण विषय हो सकता है। 2. जल संसाधनों की असमानता के कारण पूरे राज्य में समान सिंचाई क्षमता स्वतः उपलब्ध हो जाती है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"जल की असमान उपलब्धता जल-संरक्षण को महत्वपूर्ण बनाती है।"},
+{no:68,q:"कथन: राजस्थान की भौगोलिक विविधता में मरुस्थल, पर्वतीय क्षेत्र, मैदान और पठारी क्षेत्र शामिल हैं। निष्कर्ष: 1. राज्य में कृषि एवं प्राकृतिक वनस्पति का क्षेत्रीय स्वरूप अलग-अलग हो सकता है। 2. भौतिक विविधता का आर्थिक गतिविधियों पर कोई प्रभाव नहीं पड़ता।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"भौतिक विविधता कृषि और वनस्पति सहित आर्थिक गतिविधियों को प्रभावित करती है।"},
+{no:69,q:"कथन: राजस्थान में प्राकृतिक वनस्पति वर्षा और तापमान की क्षेत्रीय भिन्नताओं से प्रभावित होती है। निष्कर्ष: 1. अधिक वर्षा वाले क्षेत्रों में अपेक्षाकृत घनी वनस्पति की संभावना होती है। 2. राजस्थान के सभी भौगोलिक क्षेत्रों में एक ही प्रकार की प्राकृतिक वनस्पति पाई जाती है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"वनस्पति जलवायु की क्षेत्रीय भिन्नताओं से प्रभावित होती है।"},
+{no:70,q:"कथन: राजस्थान में वर्षा का वितरण पश्चिम से पूर्व और उत्तर-पश्चिम से दक्षिण-पूर्व की ओर बदलता है। निष्कर्ष: 1. राज्य की कृषि-जलवायु परिस्थितियों में क्षेत्रीय अंतर पाया जाता है। 2. वर्षा के वितरण में क्षेत्रीय अंतर होने के बावजूद कृषि की सभी परिस्थितियाँ समान रहती हैं।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"वर्षा की भिन्नता कृषि-जलवायु परिस्थितियों में अंतर उत्पन्न करती है।"},
+{no:71,q:"कथन: राजस्थान की कई नदियों का जलप्रवाह मानसूनी वर्षा पर निर्भर है। निष्कर्ष: 1. मानसून की अनिश्चितता नदी प्रवाह को प्रभावित कर सकती है। 2. ऐसी सभी नदियाँ हिमालय से निकलती हैं।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"मानसूनी वर्षा पर निर्भर नदियों का प्रवाह वर्षा की अनिश्चितता से प्रभावित हो सकता है।"},
+{no:72,q:"कथन: राजस्थान में सिंचाई के लिए नहरों, कुओं और अन्य जलस्रोतों का उपयोग किया जाता है। निष्कर्ष: 1. राज्य की कृषि जल-संसाधन उपलब्धता से निकटता से जुड़ी है। 2. राजस्थान की कृषि पूरी तरह केवल मानसूनी वर्षा पर निर्भर है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"सिंचाई के विभिन्न साधन कृषि में वर्षा के अतिरिक्त जल स्रोतों की भूमिका दिखाते हैं।"},
+{no:73,q:"कथन: राजस्थान में भौतिक प्रदेशों की विविधता के कारण प्राकृतिक संसाधनों का वितरण भी विविध है। निष्कर्ष: 1. क्षेत्रीय भूगोल को समझना संसाधन-आधारित आर्थिक गतिविधियों को समझने में उपयोगी है। 2. राजस्थान के सभी क्षेत्रों में संसाधनों की प्रकृति एवं उपलब्धता समान है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"संसाधनों का क्षेत्रीय वितरण भौगोलिक विविधता से जुड़ा है।"},
+{no:74,q:"कथन: राजस्थान में जल संरक्षण के लिए पारंपरिक जल-संरचनाओं का ऐतिहासिक महत्व रहा है। निष्कर्ष: 1. स्थानीय भौगोलिक परिस्थितियों ने जल-संचयन की तकनीकों को प्रभावित किया। 2. पारंपरिक जल-संरचनाएँ राजस्थान की जल-प्रबंधन परंपरा से संबंधित नहीं हैं।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:0,e:"स्थानीय परिस्थितियों के अनुसार पारंपरिक जल-संचयन प्रणालियाँ विकसित हुईं।"},
+{no:75,q:"MASTER LEVEL — कथन: राजस्थान की भौगोलिक विविधता जलवायु, जल संसाधन, मिट्टी, कृषि, वनस्पति और खनिज वितरण में क्षेत्रीय अंतर उत्पन्न करती है। निष्कर्ष: 1. राजस्थान के विभिन्न भौतिक प्रदेशों के लिए समान संसाधन-प्रबंधन रणनीति हमेशा उपयुक्त होगी। 2. क्षेत्र-विशिष्ट भौगोलिक परिस्थितियों को ध्यान में रखकर संसाधन-प्रबंधन करना अधिक तार्किक है।",o:["केवल निष्कर्ष 1","केवल निष्कर्ष 2","दोनों निष्कर्ष","कोई भी नहीं"],a:1,e:"क्षेत्रीय भौगोलिक अंतर के कारण संसाधन-प्रबंधन में क्षेत्र-विशिष्ट दृष्टिकोण अधिक तर्कसंगत है।"}
+]},
+politics:{title:"राजस्थान राजनीति एवं प्रशासन",icon:"⚖️",questions:[]},
+economy:{title:"राजस्थान अर्थव्यवस्था",icon:"💰",questions:[]},
+environment:{title:"राजस्थान पर्यावरण",icon:"🌱",questions:[]},
+science:{title:"विज्ञान एवं प्रौद्योगिकी",icon:"🔬",questions:[]},
+current:{title:"राजस्थान समसामयिक घटनाएँ एवं योजनाएँ",icon:"📰",questions:[]}
+};
+
+let quiz=[],current=0,answers=[],answeredState=[],seconds=3600,interval=null,currentTopic="";
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const el=document.getElementById(id); if(el) el.classList.add("active");
+ document.querySelectorAll(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo(0,0);
+}
+function loadTopics(){
+ const box=document.getElementById("topics"); box.innerHTML="";
+ Object.entries(TOPICS).forEach(([key,t])=>{
+  const n=t.questions.length;
+  box.innerHTML+=`<div class="card topic" onclick="${n?'startTopic(\''+key+'\')':''}" style="${n?'':'opacity:.55'}">
+   <div class="ticon">${t.icon}</div><div style="flex:1"><h3>${t.title}</h3><p>${n? n+' प्रश्न उपलब्ध':'प्रश्न जल्द जोड़े जाएंगे'}</p></div>
+   <span class="badge ${n?'':'off'}">${n?'START':'LOCKED'}</span>
+  </div>`;
+ });
+}
+function startTopic(key){
+ const t=TOPICS[key]; if(!t.questions.length){alert("इस विषय के प्रश्न अभी उपलब्ध नहीं हैं।");return}
+ currentTopic=key;quiz=[...t.questions];current=0;answers=[];answeredState=[];
+ seconds=3600;clearInterval(interval);
+ interval=setInterval(()=>{seconds--;updateTimer();if(seconds<=0){clearInterval(interval);finishQuiz()}},1000);
+ showPage("quiz");renderQuestion();
+}
+function updateTimer(){let m=Math.floor(seconds/60),s=seconds%60;document.getElementById("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function renderQuestion(){
+ const q=quiz[current],t=TOPICS[currentTopic];
+ document.getElementById("qTopic").textContent=t.title;
+ document.getElementById("qCount").textContent=`प्रश्न ${q.no} / ${quiz[quiz.length-1].no}`;
+ document.getElementById("bar").style.width=((current+1)/quiz.length*100)+"%";
+ let opts=q.o.map((x,i)=>`<button class="option" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("");
+ document.getElementById("questionBox").innerHTML=`<div class="question">${q.q}</div><div id="options">${opts}</div><div id="feedback"></div>`;
+ document.getElementById("nextBtn").textContent=current===quiz.length-1?"🏁 परिणाम देखें":"अगला प्रश्न ➜";
+}
+function selectAnswer(i){
+ if(answeredState[current])return;
+ answers[current]=i;answeredState[current]=true;
+ const q=quiz[current];
+ document.querySelectorAll(".option").forEach((b,j)=>{b.classList.add("locked");if(j===q.a)b.classList.add("correct");if(j===i&&i!==q.a)b.classList.add("wrong")});
+ document.getElementById("feedback").innerHTML=i===q.a?`<b>✅ सही उत्तर</b><br>${q.e}`:`<b>❌ गलत उत्तर</b><br>${q.e}`;
+}
+function nextQuestion(){
+ if(!answeredState[current]){alert("पहले उत्तर चुनें।");return}
+ if(current<quiz.length-1){current++;renderQuestion()}else finishQuiz();
+}
+function finishQuiz(){
+ clearInterval(interval);
+ let correct=0,wrong=0,skipped=0;
+ quiz.forEach((q,i)=>{if(answers[i]===undefined)skipped++;else if(answers[i]===q.a)correct++;else wrong++});
+ let marks=Math.max(0,correct-(wrong/3));
+ document.getElementById("score").textContent=marks.toFixed(2);
+ document.getElementById("resultText").innerHTML=`${TOPICS[currentTopic].title}<br><span class="small">अंक = सही उत्तर − गलत उत्तर × 1/3</span>`;
+ document.getElementById("stats").innerHTML=`<b>सही:</b> ${correct} &nbsp; | &nbsp; <b>गलत:</b> ${wrong} &nbsp; | &nbsp; <b>छोड़े:</b> ${skipped}<br><br><b>कुल प्रश्न:</b> ${quiz.length}`;
+ let review="";
+ quiz.forEach((q,i)=>{
+  const ua=answers[i],ok=ua===q.a;
+  review+=`<div class="review ${ua===undefined?'':ok?'ok':'bad'}"><h4>Q${q.no}. ${q.q}</h4>
+  <div class="small">आपका उत्तर: <b>${ua===undefined?'छोड़ा':q.o[ua]}</b><br>सही उत्तर: <b>${q.o[q.a]}</b><br>${q.e}</div></div>`;
+ });
+ document.getElementById("review").innerHTML=review;
+ showPage("result");
+}
+function restartQuiz(){startTopic(currentTopic)}
+function quitQuiz(){if(confirm("क्या आप क्विज़ छोड़ना चाहते हैं? आपका वर्तमान प्रयास समाप्त हो जाएगा।")){clearInterval(interval);showPage("quizInfo")}}
+loadTopics();
+if(window.Telegram&&Telegram.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+</script>
+</body>
+</html>
