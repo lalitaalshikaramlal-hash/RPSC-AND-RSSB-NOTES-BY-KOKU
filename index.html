@@ -1,1 +1,112 @@
+<!-- HOME BUTTON -->
+<button class="back-home-btn" onclick="goHome()">
+    🏠 Home
+</button>// ==========================================
+// HOME पर वापस जाने का Function
+// ==========================================
 
+function goHome() {
+
+    // सभी screens/sections को hide करें
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(function(screen) {
+        screen.style.display = "none";
+    });
+
+    // PDF viewer बंद करें
+    const pdfViewer =
+        document.getElementById("waterArchitectureViewer");
+
+    if (pdfViewer) {
+        pdfViewer.style.display = "none";
+    }
+
+    // PDF iframe खाली करें
+    const pdfFrame =
+        document.getElementById("waterArchitectureFrame");
+
+    if (pdfFrame) {
+        pdfFrame.src = "";
+    }
+
+    // Home screen दिखाएँ
+    const home =
+        document.getElementById("homeScreen");
+
+    if (home) {
+        home.style.display = "block";
+    }
+
+    // ऊपर से Home दिखाएँ
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}/* ==========================================
+   HOME BUTTON
+   ========================================== */
+
+.back-home-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+
+    background: #6c4cff;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.back-home-btn:active {
+    transform: scale(0.97);
+}<!-- ============================= -->
+<!-- राजस्थान की जल स्थापत्य कला -->
+<!-- ============================= -->
+
+<div class="pdf-card">
+    <div class="pdf-card-icon">📖</div>
+
+    <h3>राजस्थान की जल स्थापत्य कला</h3>
+
+    <p>
+        राजस्थान की जल स्थापत्य कला की अध्ययन सामग्री
+    </p>
+
+    <button class="pdf-open-btn"
+            onclick="openWaterArchitecturePDF()">
+        📄 PDF पढ़ें
+    </button>
+</div>
+
+
+<!-- ============================= -->
+<!-- PDF VIEWER -->
+<!-- ============================= -->
+
+<div id="waterArchitectureViewer"
+     class="pdf-viewer"
+     style="display:none;">
+
+    <div class="pdf-viewer-header">
+
+        <button onclick="closeWaterArchitecturePDF()">
+            ⬅️ वापस
+        </button>
+
+        <strong>
+            राजस्थान की जल स्थापत्य कला
+        </strong>
+
+    </div>
+
+    <iframe
+        id="waterArchitectureFrame"
+        title="राजस्थान की जल स्थापत्य कला PDF">
+    </iframe>
+
+      </div>
